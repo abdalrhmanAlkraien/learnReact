@@ -1,15 +1,28 @@
 import { useEffect, useState } from "react";
 import "../components/Prodcuts.css";
 import { Link } from "react-router-dom";
+import Categories from '../components/Categories';
+
 
 function Products() {
   const [products, setProducts] = useState([]);
+  const [category, setCategory] = useState(null);
+
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
       .then((request) => request.json())
       .then((data) => setProducts(data));
   }, []);
+
+  useEffect(() => {
+    console.log("from Products " + category)
+    if(category)
+    fetch("https://fakestoreapi.com/products/category" + "/" + category)
+      .then((request) => request.json())
+      .then((data) => setProducts(data));
+
+  }, [category]);
 
   function prepareProductView() {
     return products.map((product) => (
@@ -44,8 +57,9 @@ function Products() {
 //   };
 
   return (
-    <>
+    <> 
       <div className="container text-center"  >
+      <div><Categories cateItem= {category} setCate = {setCategory}/></div>
         <div className="row" style={{ margin: "50px 0 0 0" }}>
         {prepareProductView()}
         </div>

@@ -1,6 +1,5 @@
 import './App.css';
 import About from './components/About';
-import Categories from './components/Categories';
 import Navbar from './components/Navbar';
 import ProductDetails from './components/ProductDetails';
 import Products from './components/Products';
@@ -11,11 +10,8 @@ function App() {
   return (
     <div>
       <Navbar/>
-      
-
       <Routes>
       <Route element = {<><Slider/>
-      <Categories/>
       <Products/></>} path='/'/>
       <Route path='/about' element = {<About/>} />
       <Route path='/product/:productId' element = {<ProductDetails/>} />

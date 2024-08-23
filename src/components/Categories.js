@@ -1,48 +1,65 @@
 import { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 
-function Categories() {
-  const [category, setCategory] = useState([]);
+function Categories(props) {
+
+  const [categories, setCategories] = useState([]);
+
+
+  const activeCategory = (category) => {
+
+    console.log(category);
+    console.log("props value", props.cateItem)
+    props.setCate(category)
+  };
 
   // create a new useEffect with category to change the active categoiy.
   useEffect(() => {
     fetch("https://fakestoreapi.com/products/categories")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        return setCategory(data);
+        return setCategories(data);
       });
   }, []);
 
+  useEffect(() => {
+
+  })
   const viewContent = () => {
-    return category.map((element, index) => {
-      if (index == 0) {
-        return (
-          <li className="nav-item">
-            <a className="nav-link active" aria-current="page" href="#">
-              {element}
-            </a>
-          </li>
-        );
+    return categories.map((element, index) => {
+
+      if (props.cateItem == null) {
+
+        return (<li className="nav-item">
+          <Button key={element} className="nav-link" href="/#" onClick= {()=> {activeCategory(element)}}>
+            {element}
+          </Button>
+        </li>)
+      } else if (element == props.cateItem) {
+
+        return (<li className="nav-item">
+          <Button key={element} className="nav-link active" href="/#" onClick= {()=> {activeCategory(element)}}>
+            {element}
+          </Button>
+        </li>)
       } else {
-        return (
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              {element}
-            </a>
-          </li>
-        );
+
+        return (<li className="nav-item">
+          <Button key={element} className="nav-link" href="/#" onClick= {()=> {activeCategory(element)}}>
+            {element}
+          </Button>
+        </li>)
       }
     });
   };
 
   const categoiesView = () => {
-    console.log(viewContent());
     return <ul className="nav nav-tabs">{viewContent()}</ul>;
   };
 
   return (
     <>
-      <div className="container" style={{marginTop: '10px'}}>{categoiesView()}</div>
+      <div className="container" style={{ marginTop: '10px' }}>{categoiesView()}</div>
     </>
   );
 }
