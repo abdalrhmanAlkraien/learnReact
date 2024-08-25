@@ -25,7 +25,7 @@ function ProductDetails() {
             <p className="card-text">{product.description}</p>
             <p className="card-text"><b>{product.price}</b></p>
           </div>
-        </div>
+    </div>
   </>;
   
 }

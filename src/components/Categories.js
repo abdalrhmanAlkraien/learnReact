@@ -10,7 +10,8 @@ function Categories(props) {
 
     console.log(category);
     console.log("props value", props.cateItem)
-    props.setCate(category)
+    if(category)
+      props.setCate(category)
   };
 
   // create a new useEffect with category to change the active categoiy.
@@ -18,24 +19,16 @@ function Categories(props) {
     fetch("https://fakestoreapi.com/products/categories")
       .then((response) => response.json())
       .then((data) => {
+        data.push("All")
         return setCategories(data);
       });
   }, []);
 
-  useEffect(() => {
-
-  })
   const viewContent = () => {
     return categories.map((element, index) => {
-
-      if (props.cateItem == null) {
-
-        return (<li className="nav-item">
-          <Button key={element} className="nav-link" href="/#" onClick= {()=> {activeCategory(element)}}>
-            {element}
-          </Button>
-        </li>)
-      } else if (element == props.cateItem) {
+      
+      console.log(props.cateItem)
+      if (element == props.cateItem) {
 
         return (<li className="nav-item">
           <Button key={element} className="nav-link active" href="/#" onClick= {()=> {activeCategory(element)}}>

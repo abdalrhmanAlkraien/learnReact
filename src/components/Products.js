@@ -10,17 +10,23 @@ function Products() {
 
 
   useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
-      .then((request) => request.json())
-      .then((data) => setProducts(data));
+   
   }, []);
 
   useEffect(() => {
     console.log("from Products " + category)
-    if(category)
-    fetch("https://fakestoreapi.com/products/category" + "/" + category)
+    if(category && category != "All") {
+      fetch("https://fakestoreapi.com/products/category" + "/" + category)
       .then((request) => request.json())
       .then((data) => setProducts(data));
+    } else {
+      
+      setCategory("All")
+      fetch("https://fakestoreapi.com/products")
+      .then((request) => request.json())
+      .then((data) => setProducts(data));
+    }
+
 
   }, [category]);
 
